@@ -1,0 +1,159 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #eef6f1, #f8fbfa);
+  display: flex;
+  flex-direction: column;
+}
+
+/* NAVBAR */
+.brand-text {
+  font-size: 22px;
+  letter-spacing: 1px;
+  color: #4a7c52 !important;
+}
+
+/* MAIN */
+.main-area {
+  flex: 1;
+  margin-top: 60px;
+}
+
+.main-heading {
+  font-size: 36px;
+  font-weight: 600;
+  color: #2f3e36;
+}
+
+/* CARD */
+.cv-card {
+  background: #ffffff;
+  width: 100%;
+  max-width: 420px;
+  padding: 45px 35px;
+  border-radius: 22px;
+  box-shadow: 0 20px 45px rgba(0,0,0,0.08);
+  transition: 0.4s;
+}
+
+.cv-card:hover {
+  transform: translateY(-6px);
+}
+
+/* ICON */
+.icon-box {
+  width: 70px;
+  height: 70px;
+  /* background: #e8f2ec; */
+  color: #4a7c52;
+  font-size: 28px;
+  /* border-radius: 20px; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+}
+
+/* BUTTON */
+.create-btn {
+  background: linear-gradient(to right, #4a7c52, #6ea87b);
+  color: white;
+  padding: 12px 30px;
+  border-radius: 12px;
+  font-weight: 600;
+  border: none;
+  transition: 0.4s;
+}
+
+.create-btn:hover {
+  color: white;
+  box-shadow: 0 12px 25px rgba(74,124,82,0.35);
+}
+
+/* FOOTER */
+.footer {
+  padding: 18px;
+  font-size: 14px;
+  color: #777;
+}
+
+body {
+  background: linear-gradient(135deg,#eef6f1,#f7fbf9);
+  font-family: 'Poppins', sans-serif;
+}
+
+.logo {
+  color: #4a7c52;
+  font-weight: 600;
+}
+
+.main-title {
+  color: #2f5f43;
+  font-weight: 600;
+}
+
+/* START CARD */
+.start-card {
+  background: white;
+  border-radius: 20px;
+  padding: 50px 30px;
+  text-align: center;
+  cursor: pointer;
+  transition: 0.4s;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+}
+
+.start-card i {
+  font-size: 60px;
+  color: #4a7c52;
+  margin-bottom: 20px;
+}
+
+.start-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 30px 60px rgba(74,124,82,0.25);
+}
+
+.form-card {
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 35px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+  animation: fadeUp 0.5s ease;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+footer {
+  padding: 25px;
+  color: #777;
+}
+
+
+
+/* RESPONSIVE */
+@media (max-width: 576px) {
+  .main-heading {
+    font-size: 26px;
+  }
+
+  .cv-card {
+    margin: 0 15px;
+    padding: 35px 25px;
+  }
+}
