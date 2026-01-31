@@ -55,6 +55,16 @@
 
     </div>
 
+    <!-- SAVED CVs SECTION -->
+    <div class="row justify-content-center mt-5 fade-in d-none" id="savedCVsArea">
+      <div class="col-12 text-center mb-4">
+        <h3>My Saved Resumes</h3>
+      </div>
+      <div class="col-md-10" id="savedCVsContainer">
+        <!-- JS will populate this -->
+      </div>
+    </div>
+
     <!-- FORM STEPS WRAPPER -->
     <div class="row justify-content-center mt-5 d-none" id="formSteps">
       <div class="col-md-8 col-lg-6 relative-container">
@@ -311,6 +321,9 @@
       </button>
       <button class="btn btn-success hover-lift" onclick="downloadPDF()">
         <i class="bi bi-download"></i> Download PDF
+      </button>
+      <button class="btn btn-info hover-lift text-white" onclick="makeAnotherCV()">
+        <i class="bi bi-plus-circle"></i> Make Another
       </button>
     </div>
 

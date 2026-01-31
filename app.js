@@ -564,6 +564,7 @@ function toggleTheme() {
 // Window Load
 window.onload = () => {
   loadTheme();
+  renderSavedCVs(); // Show saved CVs on load
 
   // Template Preview
   const savedTemplate = localStorage.getItem("selectedTemplate");
@@ -609,5 +610,167 @@ function downloadPDF() {
 
   html2pdf().set(opt).from(element).save();
 }
+
+/* ================= MULTI-CV LOGIC ================= */
+
+function saveToCollection() {
+  const contact = JSON.parse(localStorage.getItem("contactInfo"));
+  const education = JSON.parse(localStorage.getItem("educationInfo"));
+  const experience = JSON.parse(localStorage.getItem("experienceInfo"));
+  const skills = JSON.parse(localStorage.getItem("skillInfo"));
+  const languages = JSON.parse(localStorage.getItem("languageInfo"));
+  const selectedTemplate = localStorage.getItem("selectedTemplate");
+
+  // If no minimal data, don't save empty junk
+  if (!contact && !education) return;
+
+  const newCV = {
+    id: Date.now(), // Unique ID
+    date: new Date().toLocaleDateString(),
+    data: {
+      contactInfo: contact,
+      educationInfo: education,
+      experienceInfo: experience,
+      skillInfo: skills,
+      languageInfo: languages,
+      selectedTemplate: selectedTemplate
+    }
+  };
+
+  let savedCVs = JSON.parse(localStorage.getItem("savedCVs")) || [];
+  savedCVs.push(newCV);
+  localStorage.setItem("savedCVs", JSON.stringify(savedCVs));
+}
+
+function makeAnotherCV() {
+  // 1. Save current CV to permanent storage
+  saveToCollection();
+
+  // 2. Clear current session to start fresh
+  clearSession();
+
+  // 3. Reset UI to Dashboard/Start
+  document.getElementById("cv-preview-container").classList.add("d-none");
+  document.getElementById("templateArea").classList.add("d-none");
+  document.getElementById("formSteps").classList.add("d-none");
+
+  document.getElementById("dashboardCards").classList.remove("d-none");
+  document.getElementById("headingArea").classList.remove("d-none");
+  // Show saved area if hidden
+  renderSavedCVs();
+
+  Swal.fire({
+    icon: 'success',
+    title: 'Saved!',
+    text: 'Your previous CV has been saved. You can now create a new one.',
+    timer: 2000,
+    showConfirmButton: false
+  });
+}
+
+function renderSavedCVs() {
+  const savedCVs = JSON.parse(localStorage.getItem("savedCVs")) || [];
+  const container = document.getElementById("savedCVsContainer");
+  const area = document.getElementById("savedCVsArea");
+
+  if (!container || !area) return;
+
+  if (savedCVs.length === 0) {
+    area.classList.add("d-none");
+    return;
+  }
+
+  area.classList.remove("d-none");
+  container.className = "saved-cv-grid"; // Ensure grid class
+  container.innerHTML = "";
+
+  savedCVs.forEach(cv => {
+    // Determine title (Name or "Untitled")
+    let title = "Untitled CV";
+    if (cv.data.contactInfo && cv.data.contactInfo.email) {
+      // Try to find a name if we stored it, or just use Email/Job
+      // We stored 'user' object for login, but contactInfo doesn't have name explicitly? 
+      // Wait, step 1 has email/phone/address. Name comes from Login 'user' object.
+    }
+    // Let's grab the name from the saved user data at the time content was made? 
+    // Actually, the current code pulls name from `localStorage.getItem("user")` dynamically. 
+    // We can just call it "CV - [Date]".
+
+    const name = cv.data.contactInfo ? (cv.data.contactInfo.city + ", " + cv.data.contactInfo.country) : "Draft";
+
+    // Template Name Map
+    const templates = { 1: "Modern", 2: "Professional", 3: "Creative", 4: "Minimalist" };
+    const tempName = templates[cv.data.selectedTemplate] || "Unselected";
+
+    const card = document.createElement("div");
+    card.className = "saved-cv-card fade-in";
+    card.onclick = (e) => {
+      // Prevent triggering if clicked on delete button (if we add one)
+      loadFromCollection(cv.id);
+    };
+
+    card.innerHTML = `
+      <div class="saved-cv-header">
+        <span class="badge-template">${tempName}</span>
+        <span class="saved-cv-date">${cv.date}</span>
+      </div>
+      <div class="saved-cv-title">Resume</div>
+      <div class="saved-cv-summary">
+        <i class="bi bi-geo-alt-fill"></i> ${name}
+      </div>
+      <div class="saved-cv-actions">
+        <button class="btn btn-sm btn-primary btn-sm-action" onclick="event.stopPropagation(); loadFromCollection(${cv.id})">Edit/View</button>
+         <button class="btn btn-sm btn-danger btn-sm-action" onclick="event.stopPropagation(); deleteSavedCV(${cv.id})"><i class="bi bi-trash"></i></button>
+      </div>
+    `;
+    container.appendChild(card);
+  });
+}
+
+function loadFromCollection(id) {
+  const savedCVs = JSON.parse(localStorage.getItem("savedCVs")) || [];
+  const target = savedCVs.find(cv => cv.id === id);
+
+  if (target) {
+    // Restore Valid Data
+    localStorage.setItem("contactInfo", JSON.stringify(target.data.contactInfo));
+    localStorage.setItem("educationInfo", JSON.stringify(target.data.educationInfo));
+    localStorage.setItem("experienceInfo", JSON.stringify(target.data.experienceInfo));
+    localStorage.setItem("skillInfo", JSON.stringify(target.data.skillInfo));
+    localStorage.setItem("languageInfo", JSON.stringify(target.data.languageInfo));
+    localStorage.setItem("selectedTemplate", target.data.selectedTemplate);
+
+    // Refresh globals
+    experienceArr = target.data.experienceInfo || [];
+    skillArr = target.data.skillInfo || [];
+
+    // Go to preview
+    if (target.data.selectedTemplate) {
+      selectTemplate(target.data.selectedTemplate);
+    } else {
+      showTemplates(); // If no template selected yet
+    }
+  }
+}
+
+function deleteSavedCV(id) {
+  Swal.fire({
+    title: "Delete Saved CV?",
+    text: "This cannot be undone.",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#d33",
+    confirmButtonText: "Yes, delete it!"
+  }).then((result) => {
+    if (result.isConfirmed) {
+      let savedCVs = JSON.parse(localStorage.getItem("savedCVs")) || [];
+      savedCVs = savedCVs.filter(cv => cv.id !== id);
+      localStorage.setItem("savedCVs", JSON.stringify(savedCVs));
+      renderSavedCVs();
+      Swal.fire("Deleted!", "Your CV has been deleted.", "success");
+    }
+  });
+}
+
 
 
