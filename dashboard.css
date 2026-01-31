@@ -176,182 +176,190 @@ body {
   display: block;
 }
 
-.template-card,
+/* --- DASHBOARD CARDS (Start New) --- */
 .start-card {
   background: var(--card-bg);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-md);
-  border: 1px solid transparent;
+  border: 1px solid var(--border-color);
   width: 100%;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.form-control {
-  background-color: var(--input-bg);
-  border: 2px solid transparent;
-  /* Prepare for focus border */
-  color: var(--text-color);
-  border-radius: var(--radius-md);
-  padding: 12px 16px;
-  transition: all 0.3s ease;
-  font-size: 1rem;
-}
-
-.form-control:focus {
-  background-color: var(--card-bg);
-  box-shadow: 0 4px 12px rgba(74, 124, 82, 0.15);
-  border-color: var(--primary);
-  outline: none;
-}
-
-.form-floating label {
-  color: var(--text-muted);
-  padding-left: 16px;
-  /* Align with input padding */
-}
-
-/* Buttons */
-.btn {
-  border-radius: 50px;
-  /* Pill shape for modern look */
-  padding: 12px 30px;
-  font-weight: 600;
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
-  font-size: 0.9rem;
-  transition: all 0.3s ease;
-  border: none;
+  padding: 3rem 2rem;
+  text-align: center;
+  transition: all 0.4s ease;
+  cursor: pointer;
   position: relative;
   overflow: hidden;
-  z-index: 1;
 }
 
-.btn-primary {
-  background: var(--primary);
-  color: #fff;
-  box-shadow: 0 4px 15px rgba(74, 124, 82, 0.4);
-}
-
-.btn-primary:hover {
-  background: var(--primary-dark);
-  transform: translateY(-3px);
-  box-shadow: 0 8px 25px rgba(74, 124, 82, 0.5);
-}
-
-.btn-success {
-  background: #27ae60;
-  /* A distinct success green */
-  color: #fff;
-  box-shadow: 0 4px 15px rgba(39, 174, 96, 0.4);
-}
-
-.btn-success:hover {
-  background: #219150;
-  transform: translateY(-3px);
-  box-shadow: 0 8px 25px rgba(39, 174, 96, 0.5);
-}
-
-.btn-outline-secondary {
-  border: 2px solid var(--border-color);
-  background: transparent;
-  color: var(--text-muted);
-}
-
-.btn-outline-secondary:hover {
-  background: var(--border-color);
-  color: var(--text-color);
-  transform: translateY(-3px);
-}
-
-
-/* Theme Toggle */
-.theme-btn {
-  position: fixed;
-  top: 25px;
-  right: 25px;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background: var(--card-bg);
-  color: var(--primary);
-  border: 2px solid var(--border-color);
-  font-size: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  box-shadow: var(--shadow-md);
-  transition: 0.4s;
-  z-index: 1000;
-}
-
-.theme-btn:hover {
-  transform: rotate(45deg);
-  background: var(--primary);
-  color: #fff;
-  border-color: var(--primary);
-}
-
-/* Progress Bar */
-.progress {
-  background-color: var(--input-bg);
-  border-radius: 10px;
-  overflow: hidden;
-  height: 10px !important;
-  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
-  margin-bottom: 2rem;
-}
-
-.progress-bar {
+.start-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
   background: linear-gradient(90deg, var(--primary), var(--primary-dark));
-  transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-  border-radius: 10px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s ease;
+}
+
+.start-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-lg);
+}
+
+.start-card:hover::before {
+  transform: scaleX(1);
+}
+
+.start-card i {
+  font-size: 3.5rem;
+  color: var(--primary);
+  margin-bottom: 1.5rem;
+  display: inline-block;
+  transition: transform 0.4s ease;
+  background: rgba(74, 124, 82, 0.1);
+  padding: 20px;
+  border-radius: 50%;
+}
+
+.start-card:hover i {
+  transform: rotate(10deg) scale(1.1);
+  background: var(--primary);
+  color: #fff;
+}
+
+.start-card h4 {
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: var(--text-color);
+}
+
+.start-card p {
+  color: var(--text-muted);
+  font-size: 0.95rem;
 }
 
 
 /* --- TEMPLATE PREVIEW CARDS --- */
 .template-card {
+  background: var(--card-bg);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--border-color);
+  width: 100%;
   overflow: hidden;
-  height: 380px;
+  height: 420px;
+  /* Taller to fit mockups */
   display: flex;
   flex-direction: column;
+  transition: all 0.4s ease;
+  position: relative;
 }
 
+.template-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-lg);
+}
+
+.template-info {
+  padding: 15px;
+  text-align: center;
+  background: var(--card-bg);
+  border-top: 1px solid var(--border-color);
+  z-index: 2;
+}
+
+.template-info h5 {
+  margin: 0;
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+/* Base Preview Container */
 .template-preview {
   flex: 1;
-  background-size: cover;
-  background-position: top center;
+  background: #f0f2f5;
   position: relative;
+  overflow: hidden;
   transition: 0.5s;
+  /* Create skeletal look base */
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.template-card:hover .template-preview {
-  transform: scale(1.05);
+/* Common Skeleton Elements */
+.template-preview::after {
+  content: '';
+  position: absolute;
+  width: 80%;
+  height: 85%;
+  background: #fff;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+  transition: 0.4s;
 }
 
+/* Specific Skeletal Mockups */
+
+/* Modern: Left dark sidebar */
+.modern-preview::after {
+  background: linear-gradient(90deg, #2c3e50 30%, #fff 30%);
+}
+
+/* Pro: Header bar */
+.pro-preview::after {
+  background: linear-gradient(180deg, #eee 20%, #fff 20%);
+  border-top: 4px solid #333;
+}
+
+/* Creative: Left red sidebar + circle img */
+.creative-preview::after {
+  background: linear-gradient(90deg, #e74c3c 30%, #fdfcf5 30%);
+}
+
+/* Minimalist: Centered content */
+.min-preview::after {
+  background: #fff;
+  border-top: 4px solid #ddd;
+}
+
+/* Hover Overlay & Button */
 .overlay {
-  background: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(4px);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(2px);
+  opacity: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  z-index: 10;
+}
+
+.template-card:hover .overlay {
+  opacity: 1;
 }
 
 .select-btn {
-  border-radius: 30px;
-  padding: 10px 30px;
-  font-weight: 600;
+  border-radius: 50px;
+  padding: 12px 35px;
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 1px;
+  transform: translateY(20px);
+  opacity: 0;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.template-card:hover .select-btn {
+  transform: translateY(0);
+  opacity: 1;
 }
 
 /* --- CV TEMPLATES (A4 Paper) --- */

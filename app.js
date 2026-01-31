@@ -78,12 +78,55 @@ function logout() {
 
 
 function showTemplates() {
+  // Clear previous session data to ensure isolation
+  clearSession();
+
+  // UI visibility updates
   document.getElementById("dashboardCards").classList.add("d-none");
   document.getElementById("headingArea").classList.add("d-none");
   document.getElementById("formSteps").classList.remove("d-none");
 
+  // Ensure known overlaps are hidden
+  if (document.getElementById("templateArea")) document.getElementById("templateArea").classList.add("d-none");
+  if (document.getElementById("cv-preview-container")) document.getElementById("cv-preview-container").classList.add("d-none");
+
+  // Reset form inputs (clean slate)
+  resetFormFields();
+
   // Ensure we initialize step 1
   resetSteps();
+}
+
+function clearSession() {
+  const keys = ['contactInfo', 'educationInfo', 'experienceInfo', 'skillInfo', 'languageInfo', 'selectedTemplate'];
+  keys.forEach(k => localStorage.removeItem(k));
+
+  // Reset in-memory arrays
+  experienceArr = [];
+  skillArr = [];
+
+  // Clear lists in DOM
+  if (document.getElementById("experienceList")) document.getElementById("experienceList").innerHTML = "";
+  if (document.getElementById("skillList")) document.getElementById("skillList").innerHTML = "";
+}
+
+function resetFormFields() {
+  const ids = [
+    "phone", "email", "city", "country", "address",
+    "degree", "institute", "year",
+    "experienceInput", "skillInput",
+    "lang1", "lang2", "lang3"
+  ];
+  ids.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.value = "";
+  });
+
+  // Reset Image Preview
+  const imgPreview = document.getElementById('profilePreview');
+  if (imgPreview) {
+    imgPreview.src = "https://via.placeholder.com/100?text=Photo";
+  }
 }
 
 /* STEP 1 */
@@ -300,14 +343,8 @@ function updateProgress(stepIndex) {
   }
 }
 
-function showTemplates() {
-  document.getElementById("dashboardCards").classList.add("d-none");
-  document.getElementById("headingArea").classList.add("d-none");
-  document.getElementById("formSteps").classList.remove("d-none");
+// Duplicate showTemplates removed
 
-  // Ensure step 1 is active
-  resetSteps();
-}
 
 function resetSteps() {
   document.querySelectorAll(".form-card").forEach(el => el.classList.remove("step-active"));
