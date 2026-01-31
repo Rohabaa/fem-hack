@@ -1,25 +1,31 @@
 @import url('https://fonts.googleapis.com/css?family=Poppins:400,600,800&display=swap');
 
 :root {
-  --primary: #4a7c52;
-  --primary-dark: #3a6340;
-  --secondary: #FF416C;
-  /* Just for contrast if needed, mostly using primary */
-  --bg-gradient: linear-gradient(135deg, #f6faf8 0%, #eaf3ee 100%);
-  --text-color: #333;
-  --card-bg: #fff;
-  --input-bg: #f8f8f8;
-  --overlay-grad: linear-gradient(to right, #6ea87b, #4a7c52);
+  --primary: #10b981;
+  /* Emerald 500 */
+  --primary-dark: #059669;
+  /* Emerald 600 */
+  --secondary: #3b82f6;
+  /* Blue 500 */
+  --bg-gradient: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+  --text-color: #1f2937;
+  --card-bg: #ffffff;
+  --input-bg: #f9fafb;
+  --overlay-grad: linear-gradient(to right, #34d399, #059669);
+  --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
 }
 
 [data-theme="dark"] {
-  --primary: #6ea87b;
-  --primary-dark: #4a7c52;
-  --bg-gradient: linear-gradient(135deg, #121212 0%, #1e1e1e 100%);
-  --text-color: #f1f1f1;
-  --card-bg: #2c2c2c;
-  --input-bg: #3a3a3a;
-  --overlay-grad: linear-gradient(to right, #2f5f43, #1e3c2b);
+  --primary: #34d399;
+  /* Emerald 400 */
+  --primary-dark: #10b981;
+  --secondary: #60a5fa;
+  --bg-gradient: linear-gradient(135deg, #111827 0%, #0f172a 100%);
+  --text-color: #f3f4f6;
+  --card-bg: #1f2937;
+  --input-bg: #111827;
+  --overlay-grad: linear-gradient(to right, #10b981, #064e3b);
 }
 
 * {
@@ -39,10 +45,14 @@ body {
 }
 
 h1 {
-  font-weight: bold;
+  font-weight: 700;
   margin: 0;
+  background: linear-gradient(to right, var(--primary), var(--secondary));
+  -webkit-background-clip: text;
+  background-clip: text;
   color: var(--text-color);
-  transition: color 0.5s ease;
+  transition: all 0.5s ease;
+  font-size: 2.5rem;
 }
 
 h2 {
@@ -77,17 +87,23 @@ a:hover {
 }
 
 button {
-  border-radius: 20px;
+  border-radius: 50px;
   border: 1px solid var(--primary);
   background-color: var(--primary);
   color: #FFFFFF;
-  font-size: 12px;
-  font-weight: bold;
+  font-size: 13px;
+  font-weight: 700;
   padding: 12px 45px;
   letter-spacing: 1px;
   text-transform: uppercase;
-  transition: transform 80ms ease-in, background 0.3s, border-color 0.3s;
+  transition: all 0.3s ease;
   cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
 }
 
 button:active {
@@ -291,23 +307,25 @@ input:focus {
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  background: var(--primary);
-  color: white;
-  border: none;
+  background: var(--card-bg);
+  color: var(--text-color);
+  border: 1px solid var(--primary);
   font-size: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-  transition: 0.3s;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
   z-index: 200;
   padding: 0;
-  /* Override previous */
 }
 
 .theme-btn:hover {
-  transform: scale(1.1);
+  transform: rotate(180deg) scale(1.1);
+  background: var(--primary);
+  color: #fff;
+  box-shadow: var(--shadow-lg);
 }
 
 /* Responsive */
