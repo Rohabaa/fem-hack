@@ -10,7 +10,7 @@
   /* Emerald 600 */
   --secondary: #3b82f6;
   /* Blue 500 */
-  --bg-gradient: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+  --bg-gradient: linear-gradient(-45deg, #f0fdf4, #dcfce7, #e0f2fe, #f3e8ff);
   --card-bg: #ffffff;
   --text-color: #1f2937;
   --text-muted: #6b7280;
@@ -54,11 +54,32 @@
 
 body {
   background: var(--bg-gradient);
+  background-size: 400% 400%;
+  animation: gradientBG 15s ease infinite;
   font-family: 'Outfit', sans-serif;
   color: var(--text-color);
   min-height: 100vh;
   transition: all 0.4s ease;
   overflow-x: hidden;
+}
+
+@font-face {
+  font-family: 'Monstrate-SemiBold';
+  src: url('./font/MontserratAlternates-SemiBold.ttf') format('truetype');
+}
+
+@keyframes gradientBG {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 h1,
@@ -500,6 +521,8 @@ h4 {
   box-shadow: var(--shadow-lg);
   position: relative;
   overflow: hidden;
+  border-radius: 12px;
+  /* Slightly rounded */
   /* Instead of brightness filter, we use variable colors */
 }
 
@@ -569,8 +592,11 @@ h4 {
 }
 
 .main-header h1 {
-  font-size: 3rem;
-  font-weight: 700;
+  font-size: 3.5rem;
+  /* Increased size */
+  font-family: 'Monstrate-SemiBold', sans-serif;
+  /* Custom font */
+  font-weight: 600;
   color: #2c3e50;
   margin-bottom: 5px;
   line-height: 1;
@@ -581,7 +607,8 @@ h4 {
 }
 
 .section-head-mod {
-  font-size: 1.5rem;
+  font-size: 1.8rem;
+  font-family: 'Monstrate-SemiBold', sans-serif;
   color: #2c3e50;
   text-transform: uppercase;
   font-weight: 700;
@@ -642,12 +669,20 @@ h4 {
 }
 
 .section-head-pro {
-  font-size: 1.2rem;
+  font-size: 1.5rem;
+  font-family: 'Monstrate-SemiBold', sans-serif;
   font-weight: bold;
   border-bottom: 1px solid #ccc;
   padding-bottom: 5px;
   letter-spacing: 1px;
   margin-bottom: 15px;
+}
+
+.pro-header h1 {
+  font-size: 3.5rem;
+  font-family: 'Monstrate-SemiBold', sans-serif;
+  margin: 0;
+  line-height: 1.2;
 }
 
 .border-end-custom {
@@ -710,6 +745,8 @@ h4 {
 }
 
 .c-title {
+  font-size: 1.4rem;
+  font-family: 'Monstrate-SemiBold', sans-serif;
   border-bottom: 2px solid rgba(255, 255, 255, 0.4);
   padding-bottom: 5px;
   margin-bottom: 15px;
@@ -722,7 +759,9 @@ h4 {
 }
 
 .c-name {
-  font-size: 4rem;
+  font-size: 4.5rem;
+  /* Increased */
+  font-family: 'Monstrate-SemiBold', sans-serif;
   font-weight: 800;
   color: #e74c3c;
   line-height: 0.9;
@@ -733,6 +772,8 @@ h4 {
 }
 
 .c-head-main {
+  font-size: 1.8rem;
+  font-family: 'Monstrate-SemiBold', sans-serif;
   font-weight: 700;
   color: #333;
   margin-bottom: 20px;
@@ -769,7 +810,9 @@ h4 {
 }
 
 .min-name {
-  font-size: 2.5rem;
+  font-size: 3.5rem;
+  /* Increased */
+  font-family: 'Monstrate-SemiBold', sans-serif;
   font-weight: 300;
   letter-spacing: -1px;
 }
@@ -788,7 +831,8 @@ h4 {
 }
 
 .min-section-title {
-  font-size: 0.9rem;
+  font-size: 1.2rem;
+  font-family: 'Monstrate-SemiBold', sans-serif;
   font-weight: 700;
   letter-spacing: 2px;
   color: #999;
